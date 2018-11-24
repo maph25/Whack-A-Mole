@@ -66,10 +66,9 @@
 
 
 
+void Flex_updateCHValue(sint16 channelValue);
 
-void FTM0_ISR(void);
-
-void FlexTimer_Init();
+void Flex_init();
 
 
 #endif /* FLEXTIMER_H_ */

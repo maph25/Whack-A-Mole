@@ -10,6 +10,7 @@
  */
 
 
+
 #include "Flex.h"
 #include "MK64F12.h"
 
@@ -19,29 +20,29 @@ void FTM0_ISR()
 	GPIOD->PDOR ^= 0xFF;
 }
 
-void FlexTimer_Init()
-{
-	/**Clock gating for FlexTimer*/
-	SIM->SCGC6 |= FLEX_TIMER_0_CLOCK_GATING;
-	/**When write protection is enabled (WPDIS = 0), write protected bits cannot be written.
-	 * When write protection is disabled (WPDIS = 1), write protected bits can be written.*/
-	FTM0->MODE |= FLEX_TIMER_WPDIS;
-	/**This field is write protected. It can be written only when MODE[WPDIS] = 1.*/
-	/**
-	 * 0 Only the TPM-compatible registers (first set of registers) can be used without any restriction. Do not
-	 * use the FTM-specific registers.
-	 * 1 All registers including the FTM-specific registers (second set of registers) are available for use with no restrictions.*/
-	FTM0->MODE &= ~FLEX_TIMER_FTMEN;
-	//FTM0_MODE |= FLEX_TIMER_FTMEN;
-	/**Selects the FTM behavior in BDM mode.In this case in functional mode*/
-	FTM0->CONF |= FTM_CONF_BDMMODE(3);
 
-	/**Assign modulo register with a predefined value*/
-	FTM0->MOD = 0x02;
-	/**Configure FlexTimer in output compare in toggle mode*/
-	FTM0->CONTROLS[0].CnSC = FLEX_TIMER_MSA | FLEX_TIMER_ELSA;
-	/**Assign channel value register with a predefined value*/
-	FTM0->CONTROLS[0].CnV = 0x00;
-	/**Select clock source and prescaler*/
-	FTM0->SC |= FLEX_TIMER_CLKS_1|FLEX_TIMER_PS_1;
+void Flex_updateCHValue(sint16 channelValue)
+{
+	/**Assigns a new value for the duty cycle*/
+	FTM0->CONTROLS[0].CnV = channelValue;
+}
+
+
+void Flex_init()
+{
+	/** Clock gating for the FlexTimer 0*/
+		SIM->SCGC6 |= FLEX_TIMER_0_CLOCK_GATING;
+		/**When write protection is enabled (WPDIS = 0), write protected bits cannot be written.
+		* When write protection is disabled (WPDIS = 1), write protected bits can be written.*/
+		FTM0->MODE |= FLEX_TIMER_WPDIS;
+		/**Enables the writing over all registers*/
+		FTM0->MODE &= ~FLEX_TIMER_FTMEN;
+		/**Assigning a default value for modulo register*/
+		FTM0->MOD = 0x00FF;
+		/**Selects the Edge-Aligned PWM mode mode*/
+		FTM0->CONTROLS[0].CnSC = FLEX_TIMER_MSB | FLEX_TIMER_ELSB;
+		/**Assign a duty cycle of 50%*/
+		FTM0->CONTROLS[0].CnV = FTM0->MOD/2;
+		/**Configure the times*/
+		FTM0->SC = FLEX_TIMER_CLKS_1|FLEX_TIMER_PS_128;
 }

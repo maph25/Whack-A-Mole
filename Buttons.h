@@ -18,6 +18,9 @@
 #define B7	 0x07
 #define B8 	 0x08
 #define B9	 0x09
+#define OP1  0x0A
+#define OP2	 0x0B
+#define OP3	 0x0C
 #define BUTTONS_NULL 0xFF
 
 /*Push buttons configuration*/

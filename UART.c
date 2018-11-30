@@ -6,6 +6,8 @@
  */
 
 #include "UART.h"
+#include "Bits.h"
+#include "GPIO.h"
 #include "MK64F12.h"
 
 UART_MailBoxType UART0_MailBox; /** Structure to receive the data from the UART**/
@@ -38,10 +40,8 @@ uint8 UART_flag_return(){
 	return getFlag;
 }
 
-
 void UART_init(UART_ChannelType uartChannel, uint32 system_clock, UART_BaudRateType baudRate)
-{
-	gpio_pin_control_register_t config = GPIO_MUX3;
+{	gpio_pin_control_register_t config = GPIO_MUX3;
 	GPIO_clock_gating(GPIO_B);
 	GPIO_pin_control_register(GPIO_B, BIT16, &config);
 	GPIO_pin_control_register(GPIO_B, BIT17, &config);

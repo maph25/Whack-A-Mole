@@ -44,7 +44,7 @@ void LED_init(){
 /*Random*/
 uint32 LED_random (){
 	uint32 randomValue;
-	randomValue = FTM0->CNT;
+	randomValue = Flex_return_counter();
 	randomValue = randomValue % 9;
 	switch(randomValue){
 	case LED1:

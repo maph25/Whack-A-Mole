@@ -64,7 +64,8 @@
 #define  FLEX_TIMER_CHIE  0x40
 #define  FLEX_TIMER_CHF   0x80
 
-
+/*Returns Flextimer current value*/
+uint32 Flex_return_counter();
 
 void Flex_updateCHValue(sint16 channelValue);
 

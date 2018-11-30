@@ -20,6 +20,9 @@ void FTM0_ISR()
 	GPIOD->PDOR ^= 0xFF;
 }
 
+uint32 Flex_return_counter(){
+	return (FTM0->CNT);
+}
 
 void Flex_updateCHValue(sint16 channelValue)
 {

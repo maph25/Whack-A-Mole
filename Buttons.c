@@ -31,6 +31,7 @@ void BUTTONS_init(){
 	GPIO_pin_control_register(GPIO_D, BIT1, &config); /*OP1*/
 	GPIO_pin_control_register(GPIO_D, BIT3, &config); /*OP2*/
 	GPIO_pin_control_register(GPIO_D, BIT2, &config); /*OP3*/
+	GPIO_pin_control_register(GPIO_D, BIT0, &config); /*OP4*/
 
 	/*Input configuration for push buttons moles*/
 	GPIO_data_direction_pin(GPIO_C, GPIO_INPUT, BIT5); /*B1*/
@@ -47,6 +48,7 @@ void BUTTONS_init(){
 	GPIO_data_direction_pin(GPIO_D, GPIO_INPUT, BIT1); /*OP1*/
 	GPIO_data_direction_pin(GPIO_D, GPIO_INPUT, BIT3); /*OP2*/
 	GPIO_data_direction_pin(GPIO_D, GPIO_INPUT, BIT2); /*OP3*/
+	GPIO_data_direction_pin(GPIO_D, GPIO_INPUT, BIT0);/*OP4*/
 
 	/**Sets the threshold for interrupts, if the interrupt has higher priority constant that the BASEPRI, the interrupt will not be attended*/
 	NVIC_setBASEPRI_threshold(PRIORITY_15);
@@ -81,6 +83,8 @@ uint8 BUTTONS_decode(){
 		return OP2;
 	else if (GPIO_read_pin(GPIO_D, BIT2) == FALSE)
 		return OP3;
+	else if (GPIO_read_pin(GPIO_D, BIT0) == FALSE)
+		return OP4;
 	else
 		return BUTTONS_NULL;
 }

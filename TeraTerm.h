@@ -8,6 +8,7 @@
 #ifndef TERATERM_H_
 #define TERATERM_H_
 
-
+void TeraTerm_menu();
+void TeraTerm_difficulty();
 
 #endif /* TERATERM_H_ */

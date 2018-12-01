@@ -7,6 +7,7 @@
 
 #include "GPIO.h"
 #include "Bits.h"
+#include "Game.h"
 #include "Buttons.h"
 #include "NVIC.h"
 
@@ -76,7 +77,7 @@ uint8 BUTTONS_decode(){
 	else if (GPIO_read_pin(GPIO_C, BIT2) == FALSE)
 		return B8;
 	else if (GPIO_read_pin(GPIO_C, BIT17) == FALSE)
-		return B7;
+		return B9;
 	else if (GPIO_read_pin(GPIO_D, BIT1) == FALSE)
 		return OP1;
 	else if (GPIO_read_pin(GPIO_D, BIT3) == FALSE)
@@ -86,5 +87,5 @@ uint8 BUTTONS_decode(){
 	else if (GPIO_read_pin(GPIO_D, BIT0) == FALSE)
 		return OP4;
 	else
-		return BUTTONS_NULL;
+		return NULL;
 }

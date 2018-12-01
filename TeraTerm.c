@@ -4,13 +4,14 @@
  *  Created on: Nov 24, 2018
  *      Author: Andy
  */
+#include "TeraTerm.h"
 #include "UART.h"
 
 /*Print menu*/
 void TeraTerm_menu(){
 	UART_put_string(UART_0,"\033[2J");
 	UART_put_string(UART_0,"\033[0;37;44m"); /*Text in white and background in blue */
-	UART_put_string(UART_0,"\033[8;5H");X and Y position
+	UART_put_string(UART_0,"\033[8;5H");/*X and Y position*/
 	UART_put_string(UART_0, "Wack-A-Mole by Andrea Perez /r"); /*Prints greetings*/
 	UART_put_string(UART_0,"\033[8;10H");/*X and Y position*/
 	UART_put_string(UART_0, "1. Start Game/r"); /*Prints menu option 1*/

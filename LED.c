@@ -7,6 +7,7 @@
 
 #include "Bits.h"
 #include "GPIO.h"
+#include "Game.h"
 #include "Flex.h"
 #include "LED.h"
 
@@ -43,40 +44,41 @@ void LED_init(){
 
 /*Random*/
 uint32 LED_random (){
+	uint8 led;
 	uint32 randomValue;
 	randomValue = Flex_return_counter();
 	randomValue = randomValue % 9;
 	switch(randomValue){
-	case LED1:
-		return LED1;
+	case B1:
+		led = B1;
 		break;
-	case LED2:
-		return LED2;
+	case B2:
+		led = B2;
 		break;
-	case LED3:
-		return LED3;
+	case B3:
+		led = B3;
 		break;
-	case LED4:
-		return LED4;
+	case B4:
+		led = B4;
 		break;
-	case LED5:
-		return LED5;
+	case B5:
+		led = B5;
 		break;
-	case LED6:
-		return LED6;
+	case B6:
+		led = B6;
 		break;
-	case LED7:
-		return LED7;
+	case B7:
+		led = B7;
 		break;
-	case LED8:
-		return LED8;
+	case B8:
+		led = B8;
 		break;
-	case LED9:
+	case B9:
 		return LED9;
 		break;
 	default:
-		return LED_NULL;
+		led = NULL;
 		break;
 	}
-
+	return led;
 }

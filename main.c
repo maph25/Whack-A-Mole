@@ -23,6 +23,8 @@ int main(void) {
 	NVIC_enableInterruptAndPriotity(PIT_CH0_IRQ, PRIORITY_10);
 	EnableInterrupts;
 
+
+
     while(1) {
 
     }

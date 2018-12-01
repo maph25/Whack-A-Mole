@@ -9,81 +9,86 @@
 #include "LED.h"
 #include "UART.h"
 #include "GPIO.h"
+#include "TeraTerm.h"
 #include "Game.h"
 #include "Buttons.h"
 #include "PIT.h"
 #include "Delay.h"
 
-uint8 Game_decode_port(uint32 random){
+uint8 Game_decode_port_led(uint32 random){
 	uint8 port;
 	switch(random){
-	case LED1:
+	case B1:
 		port = GPIO_B;
 		break;
-	case LED2:
+	case B2:
 		port = GPIO_B;
 		break;
-	case LED3:
+	case B3:
 		port = GPIO_B;
 		break;
-	case LED4:
+	case B4:
 		port = GPIO_B;
 		break;
-	case LED5:
+	case B5:
 		port = GPIO_B;
 		break;
-	case LED6:
+	case B6:
 		return GPIO_C;
 		break;
-	case LED7:
+	case B7:
 		port = GPIO_C;
 		break;
-	case LED8:
+	case B8:
 		port = GPIO_C;
 		break;
-	case LED9:
+	case B9:
 		port = GPIO_A;
 		break;
 	default:
+		port = NULL;
 		break;
 	}
 	return port;
 }
 
-uint8 Game_decode_bit(uint32 random){
+uint8 Game_decode_bit_led(uint32 random){
 	uint8 pin;
 	switch(random){
-	case LED1:
+	case B1:
 		pin = BIT2;
 		break;
-	case LED2:
+	case B2:
 		pin = BIT3;
 		break;
-	case LED3:
+	case B3:
 		pin = BIT10;
 		break;
-	case LED4:
+	case B4:
 		pin = BIT11;
 		break;
-	case LED5:
+	case B5:
 		pin = BIT20;
 		break;
-	case LED6:
+	case B6:
 		pin = BIT10;
 		break;
-	case LED7:
+	case B7:
 		pin = BIT11;
 		break;
-	case LED8:
+	case B8:
 		pin = BIT4;
 		break;
-	case LED9:
+	case B9:
 		pin = BIT0;
 		break;
 	default:
+		pin = NULL;
 		break;
 	}
 	return pin;
+}
+
 uint8 Game_difficulty(){
 	uint8 difficulty;
 	uint8 op;
@@ -109,25 +114,33 @@ uint8 Game_difficulty(){
 
 void Game_run(){
 	uint8 pitIntrStatus = FALSE;
+	uint8 score = 0;
+	uint8 mole;
 	uint32 led;
-	uint32 port;
-	uint8 pin;
+	uint8 port_led;
+	uint8 pin_led;
 	uint8 difficulty;
-	/*Stores random led value to beggin game*/
 
 	/*Turn on led*/
 	difficulty = Game_difficulty();
 	led = LED_random();
-	port = Game_decode_port(led);
-	pin = Game_decode_bit(led);
-	GPIO_set_pin(port, pin);
+	port_led = Game_decode_port_led(led);
+	pin_led = Game_decode_bit_led(led);
+	GPIO_set_pin(port_led, pin_led);
 
 	PIT_clear();
 	pitIntrStatus = PIT_getIntrStatus();
-	PIT_delay(PIT_0,SYSTEM_CLOCK,EASY);//2segundos
+	PIT_delay(PIT_0,SYSTEM_CLOCK, difficulty);//2segundos
 								   /*Waits for an interruption to occur*/
 	do{
-	   if((GPIO_set_pin(port, pin) == TRUE )
-	   pitIntrStatus = PIT_getIntrStatus();
+		mole = BUTTONS_decode();
+		pitIntrStatus = PIT_getIntrStatus();
 	}while(FALSE == pitIntrStatus);
+	 if(led == mole)
+		 score = score + POINT;
+	 else
+		 score = score;
 }
+
+
+

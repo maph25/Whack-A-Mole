@@ -89,6 +89,7 @@ uint8 Game_decode_bit_led(uint32 random){
 	return pin;
 }
 
+
 uint8 Game_difficulty(){
 	uint8 difficulty;
 	uint8 op;
@@ -134,10 +135,22 @@ void Game_run(){
 		do{
 			mole = BUTTONS_decode();
 			pitIntrStatus = PIT_getIntrStatus();
-		}while(FALSE == pitIntrStatus);
+		}while(FALSE == pitIntrStatus && mole == NULL);
 		score = score + POINT;
 	}while(led == mole);
 	score = score;
+
+	/*Print Score*/
+	UART_put_string(UART_0,"\033[2J"); /*Clear screen*/
+	UART_put_string(UART_0,"\033[0;37;44m"); /*Text in white and background in blue */
+	UART_put_string(UART_0,"\033[8;5H");/*X and Y position*/
+	UART_put_string(UART_0,"You lose!\r"); /*Prints greetings*/
+	UART_put_string(UART_0,"\033[10;10H");/*X and Y position*/
+	UART_put_string(UART_0,"Your score is: \r"); /*Prints greetings*/
+	UART_put_char(UART_0, score);
+
+	/*Save*/
+
 }
 
 

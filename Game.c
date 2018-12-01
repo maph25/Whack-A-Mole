@@ -121,25 +121,23 @@ void Game_run(){
 	uint8 pin_led;
 	uint8 difficulty;
 
-	/*Turn on led*/
-	difficulty = Game_difficulty();
-	led = LED_random();
-	port_led = Game_decode_port_led(led);
-	pin_led = Game_decode_bit_led(led);
-	GPIO_set_pin(port_led, pin_led);
-
-	PIT_clear();
-	pitIntrStatus = PIT_getIntrStatus();
-	PIT_delay(PIT_0,SYSTEM_CLOCK, difficulty);//2segundos
-								   /*Waits for an interruption to occur*/
 	do{
-		mole = BUTTONS_decode();
+		difficulty = Game_difficulty();
+		led = LED_random();
+		port_led = Game_decode_port_led(led);
+		pin_led = Game_decode_bit_led(led);
+		GPIO_set_pin(port_led, pin_led);
+
+		PIT_clear();
 		pitIntrStatus = PIT_getIntrStatus();
-	}while(FALSE == pitIntrStatus);
-	 if(led == mole)
-		 score = score + POINT;
-	 else
-		 score = score;
+		PIT_delay(PIT_0,SYSTEM_CLOCK, difficulty);
+		do{
+			mole = BUTTONS_decode();
+			pitIntrStatus = PIT_getIntrStatus();
+		}while(FALSE == pitIntrStatus);
+		score = score + POINT;
+	}while(led == mole);
+	score = score;
 }
 
 

@@ -11,6 +11,7 @@
 #include "GPIO.h"
 #include "TeraTerm.h"
 #include "Game.h"
+#include "Scores.h"
 #include "Buttons.h"
 #include "PIT.h"
 #include "Delay.h"
@@ -116,6 +117,7 @@ uint8 Game_difficulty(){
 void Game_run(){
 	uint8 pitIntrStatus = FALSE;
 	uint8 score = 0;
+	uint8 decimal_score[3];
 	uint8 mole;
 	uint32 led;
 	uint8 port_led;
@@ -147,9 +149,14 @@ void Game_run(){
 	UART_put_string(UART_0,"You lose!\r"); /*Prints greetings*/
 	UART_put_string(UART_0,"\033[10;10H");/*X and Y position*/
 	UART_put_string(UART_0,"Your score is: \r"); /*Prints greetings*/
-	UART_put_char(UART_0, score);
+	decimal_score[3] = Scores_decimal(score);
+	UART_put_string(UART_0,"\033[10;11H");/*X and Y position*/
+	UART_put_char(UART_0, decimal_score[2]);
+	UART_put_string(UART_0,"\033[10;12H");/*X and Y position*/
+	UART_put_char(UART_0, decimal_score[1]);
+	UART_put_string(UART_0,"\033[10;13H");/*X and Y position*/
+	UART_put_char(UART_0, decimal_score[0]);
 
-	/*Save*/
 
 }
 

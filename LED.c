@@ -14,8 +14,6 @@
 /*LED initialization*/
 void LED_init(){
 	gpio_pin_control_register_t config = GPIO_MUX1;
-
-	GPIO_clock_gating(GPIO_A);
 	GPIO_clock_gating(GPIO_B);
 	GPIO_clock_gating(GPIO_C);
 
@@ -28,7 +26,7 @@ void LED_init(){
 	GPIO_pin_control_register(GPIO_C, BIT10, &config); /*Led 6*/
 	GPIO_pin_control_register(GPIO_C, BIT11, &config); /*Led 7*/
 	GPIO_pin_control_register(GPIO_C, BIT4, &config); /*Led 8*/
-	GPIO_pin_control_register(GPIO_A, BIT0, &config); /*Led 9*/
+	GPIO_pin_control_register(GPIO_C, BIT16, &config); /*Led 9*/
 
 	/*Output configuration for leds from push buttons*/
 	GPIO_data_direction_pin(GPIO_B, GPIO_OUTPUT, BIT2); /*Led 1*/
@@ -39,7 +37,7 @@ void LED_init(){
 	GPIO_data_direction_pin(GPIO_C, GPIO_OUTPUT, BIT10); /*Led 6*/
 	GPIO_data_direction_pin(GPIO_C, GPIO_OUTPUT, BIT11); /*Led 7*/
 	GPIO_data_direction_pin(GPIO_C, GPIO_OUTPUT, BIT4); /*Led 8*/
-	GPIO_data_direction_pin(GPIO_A, GPIO_OUTPUT, BIT0); /*Led 9*/
+	GPIO_data_direction_pin(GPIO_C, GPIO_OUTPUT, BIT16); /*Led 9*/
 }
 
 /*Random*/

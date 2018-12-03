@@ -131,7 +131,6 @@ void Game_run(){
 		port_led = Game_decode_port_led(led);
 		pin_led = Game_decode_bit_led(led);
 		GPIO_set_pin(port_led, pin_led);
-
 		PIT_clear();
 		pitIntrStatus = PIT_getIntrStatus();
 		PIT_delay(PIT_0,SYSTEM_CLOCK, difficulty);

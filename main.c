@@ -4,6 +4,8 @@
  */
 #include "Flex.h"
 #include "BUTTONS.h"
+#include "Game.h"
+#include "TeraTerm.h"
 #include "LED.h"
 #include "NVIC.h"
 #include "PIT.h"
@@ -14,6 +16,7 @@
 
 
 int main(void) {
+	uint8 option;
 	/*Initializations*/
 	Flex_init();
 	BUTTONS_init();
@@ -23,9 +26,13 @@ int main(void) {
 	NVIC_enableInterruptAndPriotity(PIT_CH0_IRQ, PRIORITY_10);
 	EnableInterrupts;
 
-
-
     while(1) {
+    	TeraTerm_menu();
+    	option = BUTTONS_decode();
+    	if(option == OP1){
+    		TeraTerm_difficulty();
+    		Game_run();
+    	}
 
     }
     return 0 ;

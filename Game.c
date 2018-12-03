@@ -126,6 +126,7 @@ void Game_run(){
 
 	do{
 		difficulty = Game_difficulty();
+		TeraTerm_game_run();
 		led = LED_random();
 		port_led = Game_decode_port_led(led);
 		pin_led = Game_decode_bit_led(led);
@@ -146,18 +147,14 @@ void Game_run(){
 	UART_put_string(UART_0,"\033[2J"); /*Clear screen*/
 	UART_put_string(UART_0,"\033[0;37;44m"); /*Text in white and background in blue */
 	UART_put_string(UART_0,"\033[8;5H");/*X and Y position*/
-	UART_put_string(UART_0,"You lose!\r"); /*Prints greetings*/
+	UART_put_string(UART_0,"You lose!\r"); /*Prints*/
 	UART_put_string(UART_0,"\033[10;10H");/*X and Y position*/
 	UART_put_string(UART_0,"Your score is: \r"); /*Prints greetings*/
 	decimal_score[3] = Scores_decimal(score);
 	UART_put_string(UART_0,"\033[10;11H");/*X and Y position*/
 	UART_put_char(UART_0, decimal_score[2]);
-	UART_put_string(UART_0,"\033[10;12H");/*X and Y position*/
 	UART_put_char(UART_0, decimal_score[1]);
-	UART_put_string(UART_0,"\033[10;13H");/*X and Y position*/
 	UART_put_char(UART_0, decimal_score[0]);
-
-
 }
 
 

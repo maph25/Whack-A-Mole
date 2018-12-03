@@ -33,3 +33,10 @@ void TeraTerm_difficulty(){
 	UART_put_string(UART_0,"\033[8;11H");/*X and Y position*/
 	UART_put_string(UART_0,"4.- Saiyajin \r"); /*OP4*/
 }
+
+void TeraTerm_game_run(){
+	UART_put_string(UART_0,"\033[2J"); /*Clear screen*/
+	UART_put_string(UART_0,"\033[0;37;44m"); /*Text in white and background in blue */
+	UART_put_string(UART_0,"\033[8;5H");/*X and Y position*/
+	UART_put_string(UART_0,"Game begins \r"); /*Prints game start*/
+}

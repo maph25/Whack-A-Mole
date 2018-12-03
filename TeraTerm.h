@@ -10,5 +10,6 @@
 
 void TeraTerm_menu();
 void TeraTerm_difficulty();
+void TeraTerm_game_run();
 
 #endif /* TERATERM_H_ */
